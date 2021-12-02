@@ -1,0 +1,6 @@
+nvim/plugged
+nvim/undodir
+nvim/autoload
+coc/
+configstore/
+htop/

@@ -1,0 +1,45 @@
+Config { font = "xft:Ubuntu:weight=bold:pixelsize=16:antialias=true:hinting=true"
+        , additionalFonts = ["xft:FiraCode Nerd Font Mono:pixelsize=16:antialias=true:hinting=true"
+                            , "xft:Font Awesome 5 Free Solid:pixelsize=13"
+                            , "xft:Font Awesome 5 Brands:pixelsize=13"
+                            ]
+       , borderColor = "black"
+       , border = TopB
+       , bgColor = "#282c34"
+       , fgColor = "#ff6c6b"
+       , alpha = 255
+       , position = Top L 100 24
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = ".xmonad/xpm/"
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [ Run Com "echo" ["<fn=2>\xf015</fn>"] "home" 3600
+                    , Run Weather "VABB" ["-t", "<station>: <tempC>C",
+                                          "-L","18","-H","25",
+                                          "--normal","green",
+                                          "--high","red",
+                                          "--low","lightblue"] 36000
+                    , Run Cpu ["-t", "<fn=1>\xf108</fn> cpu: (<total>%)","-H","50",
+                               "--normal","green","--high","red"] 10
+                    , Run Memory ["-t", "<fn=2>\xf233</fn> mem: <usedratio>%"] 10
+                     -- Disk space free
+                    , Run DiskU [("/", "<fn=2>\xf0c7</fn>  hdd: <free> free")] [] 60
+                     -- Echos an "up arrow" icon in front of the uptime output.
+                    , Run Com "echo" ["<fn=2>\xf0aa</fn>"] "uparrow" 3600
+                        -- Uptime
+                    , Run Uptime ["-t", "uptime: <days>d <hours>h"] 360
+                    , Run Swap [] 10
+                    , Run Com "echo" ["<fn=1>\xf17c</fn>"] "penguin" 3600
+                    , Run Com "uname" ["-s","-r"] "" 36000
+                    , Run Date "<fn=1>\xf133</fn>  %a %b %_d %Y %H:%M:%S" "date" 10
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "  <icon=haskell_20.xpm/>   <fc=#ecbe7b>%cpu%</fc> | <fc=#ff6c6b>%memory%</fc> | <fc=#a9a1e1>%disku%</fc> | <fc=#98be65>%uparrow%  %uptime%</fc>}\
+                    \{ <fc=#46d9ff>%date%</fc> | %home%  %VABB% | <fc=#51afef>%penguin%  %uname%</fc>"
+       }
